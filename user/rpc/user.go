@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/tyrfly/MyEasyChat/user/rpc/internal/config"
-	"github.com/tyrfly/MyEasyChat/user/rpc/internal/server"
-	"github.com/tyrfly/MyEasyChat/user/rpc/internal/svc"
-	"github.com/tyrfly/MyEasyChat/user/rpc/user"
+	"myeasychat/user/rpc/internal/config"
+	"myeasychat/user/rpc/internal/server"
+	"myeasychat/user/rpc/internal/svc"
+	"myeasychat/user/rpc/user"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -26,7 +26,7 @@ func main() {
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		user.RegisterUserServiceServer(grpcServer, server.NewUserServiceServer(ctx))
+		user.RegisterUserServer(grpcServer, server.NewUserServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)

@@ -2,12 +2,12 @@
 // goctl 1.8.3
 // Source: user.proto
 
-package userservice
+package userclient
 
 import (
 	"context"
 
-	"github.com/tyrfly/MyEasyChat/user/rpc/user"
+	"myeasychat/user/rpc/user"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
@@ -19,22 +19,22 @@ type (
 	Request     = user.Request
 	Response    = user.Response
 
-	UserService interface {
+	User interface {
 		GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
 	}
 
-	defaultUserService struct {
+	defaultUser struct {
 		cli zrpc.Client
 	}
 )
 
-func NewUserService(cli zrpc.Client) UserService {
-	return &defaultUserService{
+func NewUser(cli zrpc.Client) User {
+	return &defaultUser{
 		cli: cli,
 	}
 }
 
-func (m *defaultUserService) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
-	client := user.NewUserServiceClient(m.cli.Conn())
+func (m *defaultUser) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
 	return client.GetUser(ctx, in, opts...)
 }

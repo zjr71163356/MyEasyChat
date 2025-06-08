@@ -3,28 +3,28 @@ package logic
 import (
 	"context"
 
-	"myeasychat/user/rpc/internal/svc"
-	"myeasychat/user/rpc/user"
+	"myeasychat/user/api/internal/svc"
+	"myeasychat/user/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetUserLogic struct {
+	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
-	logx.Logger
 }
 
 func NewGetUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserLogic {
 	return &GetUserLogic{
+		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
-		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *GetUserLogic) GetUser(in *user.GetUserReq) (*user.GetUserResp, error) {
+func (l *GetUserLogic) GetUser(req *types.UserReq) (resp *types.UserResp, err error) {
 	// todo: add your logic here and delete this line
 
-	return &user.GetUserResp{}, nil
+	return
 }

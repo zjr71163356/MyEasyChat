@@ -18,6 +18,6 @@ message GetUserResp {
 }
  
 
-service UserService{
+service User{
     rpc GetUser(GetUserReq) returns (GetUserResp);
 }

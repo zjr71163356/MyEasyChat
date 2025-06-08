@@ -212,8 +212,8 @@ const file_user_proto_rawDesc = "" +
 	"\vGetUserResp\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05phone\x18\x03 \x01(\tR\x05phone2=\n" +
-	"\vUserService\x12.\n" +
+	"\x05phone\x18\x03 \x01(\tR\x05phone26\n" +
+	"\x04User\x12.\n" +
 	"\aGetUser\x12\x10.user.GetUserReq\x1a\x11.user.GetUserRespB\bZ\x06./userb\x06proto3"
 
 var (
@@ -236,8 +236,8 @@ var file_user_proto_goTypes = []any{
 	(*GetUserResp)(nil), // 3: user.GetUserResp
 }
 var file_user_proto_depIdxs = []int32{
-	2, // 0: user.UserService.GetUser:input_type -> user.GetUserReq
-	3, // 1: user.UserService.GetUser:output_type -> user.GetUserResp
+	2, // 0: user.User.GetUser:input_type -> user.GetUserReq
+	3, // 1: user.User.GetUser:output_type -> user.GetUserResp
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

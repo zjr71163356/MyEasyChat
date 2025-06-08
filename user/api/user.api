@@ -1,0 +1,23 @@
+syntax = "v1"
+
+info (
+	title: "user http服务的API"
+	desc:  "user http服务API定义"
+)
+
+type (
+	UserReq {
+		Id string `json:"id"`
+	}
+	UserResp {
+		Id    string `json:"id"`
+		Name  string `json:"name"`
+		Phone string `json:"phone"`
+	}
+)
+
+service User {
+	@handler GetUser
+	get /getuser (UserReq) returns (UserResp)
+}
+
