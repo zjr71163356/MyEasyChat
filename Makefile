@@ -3,4 +3,5 @@ userprotoc:
 	--proto_path=user/proto 
 userapi:
 	goctl api go --api user/api/user.api --dir user/api --test
+
 .PHONY: protoc
