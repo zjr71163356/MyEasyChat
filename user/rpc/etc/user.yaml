@@ -5,3 +5,17 @@ Etcd:
   Hosts:
     - 127.0.0.1:2379
   Key: user.rpc
+
+MySQL:
+  DataSource: root:AZSX0123456 @tcp(127.0.0.1:3306)/IMSystem?charset=utf8mb4
+
+
+# 服务的缓存配置。
+Cache:
+  - # 缓存服务器的主机地址。
+    Host: 127.0.0.1:6379
+    # 缓存节点的类型（例如，单节点或集群）。
+    Type: node
+    # 缓存服务器的密码（如果需要）。
+    Pass:
+
