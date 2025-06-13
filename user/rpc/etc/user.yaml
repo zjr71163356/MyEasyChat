@@ -7,7 +7,7 @@ Etcd:
   Key: user.rpc
 
 MySQL:
-  DataSource: root:AZSX0123456 @tcp(127.0.0.1:3306)/IMSystem?charset=utf8mb4
+  DataSource: root:azsx0123456@tcp(127.0.0.1:3307)/IMSystem?charset=utf8mb4
 
 
 # 服务的缓存配置。
