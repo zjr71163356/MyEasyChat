@@ -14,10 +14,33 @@ type (
 		Name  string `json:"name"`
 		Phone string `json:"phone"`
 	}
+	GetUserInfoReq {
+		Id string `json:"id"`
+	}
+	GetUserInfoResp {
+		Id    string `json:"id"`
+		Name  string `json:"name"`
+		Phone string `json:"phone"`
+	}
 )
 
 service User {
 	@handler GetUser
 	get /getuser (UserReq) returns (UserResp)
+}
+
+@server (
+	// 定义一个鉴权控制的中间件，多个中间件以英文逗号,分割，如 Middleware1,Middleware2,中间件按声明顺序执行
+	middleware: LoginVerification
+)
+service User {
+	// 定义 http.HandleFunc 转换的 go 文件名称及方法，每个接口都会跟一个 handler
+	@handler getUserInfo
+	// 定义接口
+	// 请求方法为 post
+	// 路由为 /user/info
+	// 请求体为 GetUserInfoReq
+	// 响应体为 GetUserInfoResp，响应体必须有 returns 关键字修饰
+	post /user/info (GetUserInfoReq) returns (GetUserInfoResp)
 }
 
