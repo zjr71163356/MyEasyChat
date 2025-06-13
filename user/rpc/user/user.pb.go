@@ -199,9 +199,9 @@ func (x *GetUserResp) GetPhone() string {
 
 type CreateUserReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phone         string                 `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Phone         string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -236,6 +236,13 @@ func (*CreateUserReq) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{4}
 }
 
+func (x *CreateUserReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
 func (x *CreateUserReq) GetName() string {
 	if x != nil {
 		return x.Name
@@ -250,18 +257,8 @@ func (x *CreateUserReq) GetPhone() string {
 	return ""
 }
 
-func (x *CreateUserReq) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
 type CreateUserResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Phone         string                 `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -296,27 +293,6 @@ func (*CreateUserResp) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *CreateUserResp) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *CreateUserResp) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *CreateUserResp) GetPhone() string {
-	if x != nil {
-		return x.Phone
-	}
-	return ""
-}
-
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -332,15 +308,12 @@ const file_user_proto_rawDesc = "" +
 	"\vGetUserResp\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05phone\x18\x03 \x01(\tR\x05phone\"U\n" +
-	"\rCreateUserReq\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05phone\x18\x02 \x01(\tR\x05phone\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\"J\n" +
-	"\x0eCreateUserResp\x12\x0e\n" +
+	"\x05phone\x18\x03 \x01(\tR\x05phone\"I\n" +
+	"\rCreateUserReq\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05phone\x18\x03 \x01(\tR\x05phone2o\n" +
+	"\x05phone\x18\x03 \x01(\tR\x05phone\"\x10\n" +
+	"\x0eCreateUserResp2o\n" +
 	"\x04User\x12.\n" +
 	"\aGetUser\x12\x10.user.GetUserReq\x1a\x11.user.GetUserResp\x127\n" +
 	"\n" +
