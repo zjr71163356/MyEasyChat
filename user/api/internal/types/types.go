@@ -3,6 +3,16 @@
 
 package types
 
+type GetUserInfoReq struct {
+	Id string `json:"id"`
+}
+
+type GetUserInfoResp struct {
+	Id    string `json:"id"`
+	Name  string `json:"name"`
+	Phone string `json:"phone"`
+}
+
 type UserReq struct {
 	Id string `json:"id"`
 }
