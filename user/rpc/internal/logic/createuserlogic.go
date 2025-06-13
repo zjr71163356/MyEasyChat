@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"database/sql"
 
 	"myeasychat/user/models"
 	"myeasychat/user/rpc/internal/svc"
@@ -27,18 +26,15 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 
 func (l *CreateUserLogic) CreateUser(in *user.CreateUserReq) (*user.CreateUserResp, error) {
 	// todo: add your logic here and delete this line
-	Resp, err := l.svcCtx.UsersModel.Insert(l.ctx, &models.Users{
-		Name:     in.Name,
-		Phone:    in.Phone,
-		Password: sql.NullString{String: in.Password, Valid: true},
+	_, err := l.svcCtx.UsersModel.Insert(l.ctx, &models.Users{
+		Id:    in.Id,
+		Name:  in.Name,
+		Phone: in.Phone,
 	})
 
 	if err != nil {
 		return nil, err
 	}
 
-	newId, err := Resp.LastInsertId()
-	return &user.CreateUserResp{
-		Id: string(newId),
-	}, nil
+	return &user.CreateUserResp{}, nil
 }

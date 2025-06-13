@@ -5,7 +5,7 @@ user_api:
 	goctl api go --api user/api/user.api --dir user/api --test
 user_models:
 	goctl model  mysql ddl -s /home/tyrfly/MyEasyChat/user/sql/user.sql -dir /home/tyrfly/MyEasyChat/user/models -c
-	
 run_mysql:
 	docker run --name mysql -e MYSQL_ROOT_PASSWORD=azsx0123456  -p 3307:3306 -d mysql:latest
+	
 .PHONY: protoc models api
