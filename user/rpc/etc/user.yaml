@@ -1,21 +1,15 @@
 Name: user.rpc
 ListenOn: 0.0.0.0:8080
-Advertise: 127.0.0.1:8080      # 这里的地址要让 API 能访问到
+Advertise: rpc:8080      # 修改：确保此地址可从网络内部访问
 Etcd:
   Hosts:
-    - 127.0.0.1:2379
+    - etcd:2379          # 修改：使用 etcd 服务名
   Key: user.rpc
 
 MySQL:
-  DataSource: root:azsx0123456@tcp(127.0.0.1:3307)/IMSystem?charset=utf8mb4
+  DataSource: root:azsx0123456@tcp(mysql:3306)/IMSystem?charset=utf8mb4 # 修改：使用 mysql 服务
 
-
-# 服务的缓存配置。
 Cache:
-  - # 缓存服务器的主机地址。
-    Host: 127.0.0.1:6379
-    # 缓存节点的类型（例如，单节点或集群）。
+  - Host: redis:6379      # 修改：使用 redis 服务名
     Type: node
-    # 缓存服务器的密码（如果需要）。
     Pass:
-

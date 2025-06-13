@@ -1,0 +1,15 @@
+FROM golang:1.24-alpine AS builder
+WORKDIR /app
+# 复制 RPC 服务代码
+ENV GOPROXY=https://goproxy.cn,direct
+
+COPY .  .
+RUN go mod download 
+WORKDIR /app/user/rpc
+RUN go build -v -o rpc .
+
+FROM alpine:3.16
+WORKDIR /app
+COPY --from=builder /app/user/rpc .
+EXPOSE 8080
+CMD ["./rpc"]

@@ -1,0 +1,15 @@
+FROM golang:1.24-alpine AS builder
+WORKDIR /app
+# 设置 Go 包下载代理
+ENV GOPROXY=https://goproxy.cn,direct
+# 复制 API 代码，根据实际项目目录结构调整
+COPY .  .
+RUN go mod download 
+WORKDIR /app/user/api
+RUN  go build -v -o api .
+
+FROM alpine:3.16
+WORKDIR /app
+COPY --from=builder /app/user/api .
+EXPOSE 8888
+CMD ["./api"]

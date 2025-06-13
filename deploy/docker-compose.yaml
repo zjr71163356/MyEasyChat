@@ -1,0 +1,85 @@
+version: '3.8'
+
+networks:
+  myeasychat_network:
+    driver: bridge
+
+services:
+  etcd:
+    build:
+      context: .
+      dockerfile: Dockerfile_etcd
+    container_name: etcd_server
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    networks:
+      - myeasychat_network
+    environment:
+      - ETCD_ENABLE_V2=true
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_NAME=etcd
+
+  mysql: # 新增 MySQL 服务
+    image: mysql:8.0 # 您可以指定具体的 MySQL 版本
+    container_name: mysql_db
+    ports:
+      - "3307:3306" # 将容器的 3306 端口映射到宿主机的 3307 端口
+    environment:
+      MYSQL_ROOT_PASSWORD: azsx0123456 # 设置 MySQL root 用户密码
+      MYSQL_DATABASE: IMSystem # 可选：启动时创建数据库
+    volumes:
+      - mysql_data:/var/lib/mysql # 持久化数据
+    networks:
+      - myeasychat_network
+    healthcheck: # 可选：添加健康检查
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-P", "3306", "-u", "root", "-pazsx0123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rpc:
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile_rpc
+    container_name: user_rpc
+    ports:
+      - "8080:8080"
+    depends_on:
+      - etcd
+      - mysql # 新增：rpc 服务依赖 mysql 服务
+    environment:
+      - ADVERTISE=rpc:8080
+    networks:
+      - myeasychat_network
+
+  api:
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile_api
+    container_name: user_api
+    ports:
+      - "8888:8888"
+    depends_on:
+      - rpc
+      - etcd
+      - redis
+      - mysql # 新增：api 服务也可能间接依赖 mysql (通过 rpc) 或直接使用
+    environment:
+      - USERRPC_KEY=user.rpc
+      - REDIS_HOST=redis:6379
+    networks:
+      - myeasychat_network
+
+  redis:
+    image: redis:alpine
+    container_name: cache_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - myeasychat_network
+
+volumes: # 新增：定义数据卷
+  mysql_data:

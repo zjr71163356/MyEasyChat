@@ -26,7 +26,7 @@ func NewGetUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserLo
 
 func (l *GetUserLogic) GetUser(req *types.UserReq) (resp *types.UserResp, err error) {
 	// todo: add your logic here and delete this line
-	res, err := l.svcCtx.GetUser(l.ctx, &userclient.GetUserReq{
+	res, err := l.svcCtx.User.GetUser(l.ctx, &userclient.GetUserReq{
 		Id: req.Id,
 	})
 	if err != nil {

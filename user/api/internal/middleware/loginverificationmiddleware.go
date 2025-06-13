@@ -16,8 +16,8 @@ func (m *LoginVerificationMiddleware) Handle(next http.HandlerFunc) http.Handler
 			next(w, r)
 			return
 		}
-		w.Write([]byte("Unauthorized")) // Return unauthorized response
-
+		w.Write([]byte("没有执行该方法的权限")) // Return unauthorized response
+		// return
 		// Passthrough to next handler if need
 	}
 }

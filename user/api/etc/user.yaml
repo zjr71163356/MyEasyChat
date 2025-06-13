@@ -4,6 +4,6 @@ Port: 8888
 UserRpc:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - etcd:2379          # 修改：使用 etcd 服务名
     Key: user.rpc
-  # NonBlock: true            # 避免首次 dial 阻塞
+  # NonBlock: true
