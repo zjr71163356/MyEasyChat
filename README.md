@@ -6,3 +6,4 @@
 -【bug】Windows上面有两个mysql，一个是local安装的，一个是docker容器，一开始把前者误认为是后者，在上面创建数据库，项目连接后者，结果访问不到IMSystem表格，debug半天终于发现问题。
 -【bug】docker mysql容器，密码设置为azsx....,local mysql密码为前者字母部分大写化即AZSX....，连接的时候用后者的密码连接前者，结果每次都access denied，以为是mysql容器的访问权限设置出了问题，设置成AZSX....，实际上是密码错了，不用额外设置访问权限设置。
 -【总结】出现上述错误的核心原因应该是mysql有两个，容易错认，后续写项目的时候会注意到底是哪个数据库。
+-【bug】使用docker-compose.yaml文件构建了好久，一开始Dockerfile_rpc、Dockerfile_api中需要访问go.mod、go.sum来安装包，但因为docker-compose中对应的context设置，(1)无法访问到go.mod、go.sum，于是重新设置了context，然后(2)开始无法访问到dockerfile，然后发现docker-compose.yaml中的dockerfile在默认情况下是根据context中设置的路径来访问dockerfile，然后指定dockerfile地址为绝对地址，就可以访问到了(3)下载go包的时候因为网络问题太慢，于是又设置了PROXY(4)需要运行api或者rpc目录下的.go文件，于是需要切换目录，使用WORKDIR 切换到/app/user/rpc或api
